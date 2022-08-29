@@ -1,25 +1,25 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const taskForm = document.querySelector("#create-task-form");
-  const taskList = document.querySelector("#tasks");
-  
-  taskForm.addEventListener('submit', function(e){
-    e.preventDefault();
-    
-    const newTask = document.querySelector('#new-task-description');
-    
-    taskList.innerHTML += `<li> ${newTask}
-    <button data-action = "delete"> X </button>
-  </li>`;
+  console.log('DOM is loaded');
+})
 
 
-  });
-  taskList.addEventListener("click", function (e) {
-    if (e.target.dataset.action === "delete") {
-      e.target.parentElement.remove();
-    }
-  });
-   
-  
-  
+const form = document.querySelector('form')
+form.addEventListener('submit', (e) => {
+  e.preventDefault()
+  let taskList = document.getElementById('new-task-description')
+  renderTodo(taskList.value)
+  form.reset()
+})
 
-});
+const renderTodo = taskList => {
+  const li = document.createElement('li')
+  const btn = document.createElement('button')
+  const task = document.getElementById('tasks')
+  li.textContent = `${taskList}`
+  btn.textContent = 'X'
+  btn.addEventListener('click', () => {
+    li.remove()
+  })
+  task.appendChild(li)
+  li.appendChild(btn)
+}
